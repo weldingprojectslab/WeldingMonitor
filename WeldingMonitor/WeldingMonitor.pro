@@ -5,7 +5,8 @@ CONFIG += c++11
 
 SOURCES += main.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+    menupages.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH = qml
@@ -14,3 +15,5 @@ QML_IMPORT_PATH = qml
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES +=
