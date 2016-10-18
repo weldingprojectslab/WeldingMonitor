@@ -13,7 +13,7 @@ Window {
             console.log(qsTr('Clicked on background. Text: "' + textEdit.text + '"'))
         }
     }
-
+// commentline
     TextEdit {
         id: textEdit
         text: qsTr("Enter some text...")
