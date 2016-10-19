@@ -1,1 +1,9 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/">
+        <file>mainpage.qml</file>
+        <file>analysis.qml</file>
+        <file>deepanalysis.qml</file>
+        <file>settings.qml</file>
+        <file>menupage.qml</file>
+    </qresource>
+</RCC>
