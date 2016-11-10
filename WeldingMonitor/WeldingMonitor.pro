@@ -3,7 +3,16 @@ TEMPLATE = app
 QT += qml quick
 CONFIG += c++11
 
-SOURCES += main.cpp
+
+TARGET = WeldingMonitor
+target.files = WeldingMonitor
+target.path = /home/root
+INSTALLS += target
+
+
+SOURCES += main.cpp \
+    adcthread.cpp \
+    datacollect.cpp
 
 RESOURCES += qml.qrc \
     menupages.qrc
@@ -12,8 +21,12 @@ RESOURCES += qml.qrc \
 QML_IMPORT_PATH = qml
 
 # Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+#qnx: target.path = /tmp/$${TARGET}/bin
+#else: unix:!android: target.path = /opt/$${TARGET}/bin
+#!isEmpty(target.path): INSTALLS += target
 
 DISTFILES +=
+
+HEADERS += \
+    adcthread.h \
+    datacollect.h

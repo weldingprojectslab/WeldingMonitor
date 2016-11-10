@@ -73,7 +73,25 @@ Window {
             y: 645
             width: 163
             height: 96
-            text: qsTr("Kalibrasyon Test")
+            text: qsTr("Kalibrasyon")
+            onClicked: {
+                if(btn_calibration.text == "Kalibrasyon")
+                {
+                    pageloader_mainqmlpage.source = "qrc:/SampleTiming.qml";
+                    btn_calibration.text = "Kablibrasyon Bitir";
+                    btn_settings.visible = false;
+                    btn_detailed_analysis.visible = false;
+                    btn_analysis.visible = false;
+                }
+                else
+                {
+                    pageloader_mainqmlpage.source = "qrc:/analysis.qml";
+                    btn_calibration.text = "Kalibrasyon"
+                    btn_settings.visible = true;
+                    btn_detailed_analysis.visible = true;
+                    btn_analysis.visible = true;
+                }
+            }
         }
 
 
