@@ -49,10 +49,12 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../WeldingMonitor/main.cpp \
-		../WeldingMonitor/adcthread.cpp qrc_qml.cpp \
+		../WeldingMonitor/adcthread.cpp \
+		../WeldingMonitor/datacollect.cpp qrc_qml.cpp \
 		qrc_menupages.cpp
 OBJECTS       = main.o \
 		adcthread.o \
+		datacollect.o \
 		qrc_qml.o \
 		qrc_menupages.o
 DIST          = /opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/lib/qt5/mkspecs/features/spec_pre.prf \
@@ -181,8 +183,10 @@ DIST          = /opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/
 		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/lib/qt5/mkspecs/features/exceptions.prf \
 		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/lib/qt5/mkspecs/features/yacc.prf \
 		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/lib/qt5/mkspecs/features/lex.prf \
-		../WeldingMonitor/WeldingMonitor.pro ../WeldingMonitor/adcthread.h ../WeldingMonitor/main.cpp \
-		../WeldingMonitor/adcthread.cpp
+		../WeldingMonitor/WeldingMonitor.pro ../WeldingMonitor/adcthread.h \
+		../WeldingMonitor/datacollect.h ../WeldingMonitor/main.cpp \
+		../WeldingMonitor/adcthread.cpp \
+		../WeldingMonitor/datacollect.cpp
 QMAKE_TARGET  = WeldingMonitor
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = WeldingMonitor
@@ -497,8 +501,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../WeldingMonitor/qml.qrc ../WeldingMonitor/menupages.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents ../WeldingMonitor/adcthread.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../WeldingMonitor/main.cpp ../WeldingMonitor/adcthread.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../WeldingMonitor/adcthread.h ../WeldingMonitor/datacollect.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../WeldingMonitor/main.cpp ../WeldingMonitor/adcthread.cpp ../WeldingMonitor/datacollect.cpp $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -747,7 +751,10 @@ main.o: ../WeldingMonitor/main.cpp /opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-
 		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qtimeline.h \
 		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qtimezone.h \
 		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qxmlstream.h \
-		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qtcoreversion.h
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qtcoreversion.h \
+		../WeldingMonitor/datacollect.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/QString \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/QThread
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../WeldingMonitor/main.cpp
 
 adcthread.o: ../WeldingMonitor/adcthread.cpp ../WeldingMonitor/adcthread.h \
@@ -942,6 +949,79 @@ adcthread.o: ../WeldingMonitor/adcthread.cpp ../WeldingMonitor/adcthread.h \
 		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/QIODevice \
 		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/QDataStream
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o adcthread.o ../WeldingMonitor/adcthread.cpp
+
+datacollect.o: ../WeldingMonitor/datacollect.cpp ../WeldingMonitor/datacollect.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/QString \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qstring.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qchar.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qglobal.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qconfig.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qfeatures.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qsystemdetection.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qprocessordetection.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qtypeinfo.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qtypetraits.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qsysinfo.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qlogging.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qflags.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qatomic.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qbasicatomic.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qgenericatomic.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qatomic_mips.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qatomic_x86.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qatomic_unix.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qglobalstatic.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qmutex.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qnumeric.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qbytearray.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qrefcount.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qnamespace.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qarraydata.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qstringbuilder.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/QDebug \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qdebug.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qalgorithms.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qhash.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qiterator.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qlist.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qbytearraylist.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qpair.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qmap.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qtextstream.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qiodevice.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qobject.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qobjectdefs.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qcoreevent.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qscopedpointer.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qmetatype.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qisenum.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qobject_impl.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qlocale.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qvariant.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qstringlist.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qdatastream.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qregexp.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qstringmatcher.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qshareddata.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qvector.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qpoint.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qset.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qcontiguouscache.h \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/QThread \
+		/opt/poky/1.8.2/sysroots/cortexa9hf-vfp-neon-poky-linux-gnueabi/usr/include/qt5/QtCore/qthread.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o datacollect.o ../WeldingMonitor/datacollect.cpp
 
 qrc_qml.o: qrc_qml.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_qml.o qrc_qml.cpp

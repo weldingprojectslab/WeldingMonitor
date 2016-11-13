@@ -6,6 +6,11 @@ Item {
     width: 845
     height: 768
 
+    property var array: [200, 300, 400 , 200, 100, 100, 100 ,1100 ,100]
+    property var label: []
+    property var values: []
+    property var length: 0
+
     Item {
         id: videoArea
         x: 103
@@ -26,6 +31,7 @@ Item {
         }
     }
 
+
     Item {
         id: voltage
         x: 0
@@ -33,19 +39,43 @@ Item {
         width: 845
         height: 144
 
+        Timer {
+               id: dataTimer
+               interval: 1000
+               repeat: true
+               onTriggered: addData([5.008, 10.007])
+           }
+
+
+        Timer {
+               id: plotUpdateTimer
+               interval: 1000
+               repeat: true
+               running: true
+               onTriggered: {
+                   voltage_line.repaint()
+               }
+           }
+
+
         Chart {
             id: voltage_line;
-            width: 845;
+            width: 800;
             height: 144;
             anchors.centerIn: parent
 
-            chartAnimated: true;
+            chartAnimated: false;
             chartAnimationEasing: Easing.InCubic;
             chartAnimationDuration: 1000;
             chartType: Charts.ChartType.LINE;
             Component.onCompleted: {
+
+                //Start simulated data timer.
+                dataTimer.start()
+
+                //Set data visual properties and data/label variables.
                 chartData = {
-                    labels: ["0.01s", "0.02s", "0.03", "0.04", "0.05s", "0.06s", "0.07s","0.08s","0.09s","0.10s","0.11s","0.12s","0.13s","0.14s","0.15s","0.16s","0.17s","0.18s","0.19s","0.20s"],
+                    labels: ["0.00s", "", "", "", "", "", "","","","0.01s","","","","","","","","","","0.02s"],
                     datasets:[
                         {
                             label: "Voltage line dataset",
@@ -55,7 +85,7 @@ Item {
                             pointStrokeColor: "#fff",
                             pointHighlightFill: "#fff",
                             pointHighlightStroke: "rgba(220,220,220,1)",
-                            data: [800, 700, 750, 700, 700, 600, 500, 500, 750, 750, 1050, 1100, 1050, 1040, 1030, 1000, 0, 200, 300, 480]
+                            data:  [650, 590, 800, 810, 560, 550, 400, 400, 500, 650, 590, 4000, 810, 560, 0110, 400, 400, 500, 650, 590]
                         }
                     ]
                 }
@@ -80,7 +110,7 @@ Item {
 
         Chart {
             id: current_line2;
-            width: 845;
+            width: 800;
             height: 144;
             anchors.centerIn: parent
 
@@ -91,7 +121,7 @@ Item {
             chartType: Charts.ChartType.LINE;
             Component.onCompleted: {
                 chartData = {
-                    labels: ["0.01s", "0.02s", "0.03", "0.04", "0.05s", "0.06s", "0.07s","0.08s","0.09s","0.10s","0.11s","0.12s","0.13s","0.14s","0.15s","0.16s","0.17s","0.18s","0.19s","0.20s"],
+                    labels: ["0.00s", "", "", "", "", "", "","","","0.01s","","","","","","","","","","0.02s"],
                     datasets:[
                         {
                             label: "current line dataset",
@@ -101,7 +131,7 @@ Item {
                             pointStrokeColor: "#fff",
                             pointHighlightFill: "#fff",
                             pointHighlightStroke: "rgba(220,220,220,1)",
-                            data: [65, 59, 80, 81, 56, 55, 40, 40, 50, 65, 59, 0, 81, 56, 0110, 40, 40, 50, 65, 59]
+                            data: [6, 5, 8, 8, 5, 5, 4, 4, 5, 6, 9, 0, 8, 5, 10, 4, 4, 5, 5, 9]
                         }
                     ]
                 }
@@ -115,6 +145,29 @@ Item {
                 font.pixelSize: 12
             }
         }
+    }
+
+    function addData(data)
+    {
+        console.log("values.length :" + values.length)
+
+        if(data.length >= 20 )
+        {
+            length = 0;
+            data.length = 0;
+            label.length = 0;
+
+        }
+
+        //add new labels/values
+        for(var i = length; i < (length + data.length); i++)
+        {
+            label.push(i)
+            values.push(data [i - length])
+        }
+
+        // update total labels/values length
+        length += data.length
     }
 
 }

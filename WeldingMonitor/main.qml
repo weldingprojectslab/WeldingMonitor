@@ -3,13 +3,13 @@ import QtQuick.Window 2.2
 import jbQuick.Charts 1.0
 import QtQuick.Controls 1.3
 
+
 Window {
     visible: true
     width: 1024
     height: 768
     title: qsTr("Welding Machine Calibration Monitor")
     id: mainprogram
-
 
 
     Item {
@@ -82,6 +82,7 @@ Window {
                     btn_settings.visible = false;
                     btn_detailed_analysis.visible = false;
                     btn_analysis.visible = false;
+
                 }
                 else
                 {

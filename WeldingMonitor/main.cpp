@@ -10,19 +10,16 @@ int main(int argc, char *argv[])
 
 
 
-
-
-
     QQmlApplicationEngine engine;
-    engine.addImportPath("qml");
+    engine.addImportPath("../qml");
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
 
-    DataCollect mDataCollect;
-    mDataCollect.StartDataCollectting();
-    mDataCollect.SetDataReadNum(100);
-    mDataCollect.InitDataCollectting();
-    QThread::msleep(100);
+//    DataCollect mDataCollect;
+//    mDataCollect.StartDataCollectting();
+//    mDataCollect.SetDataReadNum(100);
+//    mDataCollect.InitDataCollectting();
+//    QThread::msleep(100);
 
 //    AdcThread channel0;
 //    channel0.name = "channel0";
