@@ -12,7 +12,9 @@ INSTALLS += target
 
 SOURCES += main.cpp \
     adcthread.cpp \
-    datacollect.cpp
+    datacollect.cpp \
+    worker.cpp \
+    testclassfirst.cpp
 
 RESOURCES += qml.qrc \
     menupages.qrc
@@ -29,4 +31,7 @@ DISTFILES +=
 
 HEADERS += \
     adcthread.h \
-    datacollect.h
+    datacollect.h \
+    worker.h \
+    testclassfirst.h \
+    main.h

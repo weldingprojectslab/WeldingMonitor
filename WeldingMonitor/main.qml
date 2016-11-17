@@ -5,12 +5,16 @@ import QtQuick.Controls 1.3
 
 
 Window {
+    id: mainprogram
     visible: true
     width: 1024
     height: 768
     title: qsTr("Welding Machine Calibration Monitor")
-    id: mainprogram
 
+    property variant myArray: []
+    signal qmlSignal(string msg)
+    signal workRequested()
+    signal abort()
 
     Item {
         id: mainqmlage
@@ -82,6 +86,10 @@ Window {
                     btn_settings.visible = false;
                     btn_detailed_analysis.visible = false;
                     btn_analysis.visible = false;
+                    mainprogram.workRequested()
+                    myArray = test_class_first.GetTheList()
+                    console.log(test_class_first.GetTheList())
+                    console.log("myarra[0] :" + myArray[0] + " myarray[1] :" + myArray[1] + " myarray[2]" + myArray[2]);
 
                 }
                 else
@@ -91,6 +99,7 @@ Window {
                     btn_settings.visible = true;
                     btn_detailed_analysis.visible = true;
                     btn_analysis.visible = true;
+                    mainprogram.abort()
                 }
             }
         }

@@ -6,7 +6,10 @@ Item {
     width: 845
     height: 768
 
+
     property var array: [200, 300, 400 , 200, 100, 100, 100 ,1100 ,100]
+    property var tmparray: []
+    property var _labels: []
     property var label: []
     property var values: []
     property var length: 0
@@ -43,7 +46,22 @@ Item {
                id: dataTimer
                interval: 1000
                repeat: true
-               onTriggered: addData([5.008, 10.007])
+               onTriggered: {
+                   addData([5.008, 10.007])
+//                   array = test_class_first.GetTheList()
+//                   refreshData(test_class_first.GetTheList())
+//                   console.log("array :" + array)
+                   tmparray = test_class_first.GetTheList()
+//                    array = [];
+//                   array.length = 0;
+
+                   array.splice(0);
+                   array.push(tmparray[4]);
+                   array[0] = tmparray[0];
+                   array[1] = tmparray[1];
+                   current_line2.repaint();
+               }
+
            }
 
 
@@ -53,7 +71,7 @@ Item {
                repeat: true
                running: true
                onTriggered: {
-                   voltage_line.repaint()
+                  // voltage_line.repaint()
                }
            }
 
@@ -73,9 +91,10 @@ Item {
                 //Start simulated data timer.
                 dataTimer.start()
 
+
                 //Set data visual properties and data/label variables.
                 chartData = {
-                    labels: ["0.00s", "", "", "", "", "", "","","","0.01s","","","","","","","","","","0.02s"],
+                    labels: ["0.00s", "", "", "", "","", "", "", "","","","0.01s","","","","","","","","","","","","0.02s"],
                     datasets:[
                         {
                             label: "Voltage line dataset",
@@ -85,7 +104,7 @@ Item {
                             pointStrokeColor: "#fff",
                             pointHighlightFill: "#fff",
                             pointHighlightStroke: "rgba(220,220,220,1)",
-                            data:  [650, 590, 800, 810, 560, 550, 400, 400, 500, 650, 590, 4000, 810, 560, 0110, 400, 400, 500, 650, 590]
+                            data:  [650, 590, 800, 810, 560, 550, 400, 400, 500, 650, 590, 4000, 810, 560, 0110, 400, 400, 500, 650, 590,600,600,600,900]
                         }
                     ]
                 }
@@ -121,7 +140,7 @@ Item {
             chartType: Charts.ChartType.LINE;
             Component.onCompleted: {
                 chartData = {
-                    labels: ["0.00s", "", "", "", "", "", "","","","0.01s","","","","","","","","","","0.02s"],
+                    labels: ["0.00s", "", "", "", "","", "", "", "","","","0.01s","","","","","","","","","","","","0.02s"],
                     datasets:[
                         {
                             label: "current line dataset",
@@ -131,7 +150,7 @@ Item {
                             pointStrokeColor: "#fff",
                             pointHighlightFill: "#fff",
                             pointHighlightStroke: "rgba(220,220,220,1)",
-                            data: [6, 5, 8, 8, 5, 5, 4, 4, 5, 6, 9, 0, 8, 5, 10, 4, 4, 5, 5, 9]
+                            data: array
                         }
                     ]
                 }
@@ -168,6 +187,12 @@ Item {
 
         // update total labels/values length
         length += data.length
+    }
+
+    function refreshData(my_array)
+    {
+       array = []
+       array.push(my_array)
     }
 
 }
