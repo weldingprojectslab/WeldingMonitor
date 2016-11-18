@@ -19,7 +19,7 @@ public:
      * @brief Requests the process to abort
      * it is thread sade as it uses #mutex to protect access to #_abort variable
      */
-    void abort();
+    Q_INVOKABLE void abort();
 
 signals:
     /**
@@ -56,6 +56,10 @@ private:
      * @brief Protects access to #_abort
      */
     QMutex mutex;
+    /**
+     *  @brief Hold the refrences of data
+     */
+    QByteArray _dataBuffer;
 
 };
 

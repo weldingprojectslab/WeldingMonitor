@@ -30,9 +30,6 @@ int main(int argc, char *argv[])
     worker_voltage = new Worker;
 
 
-    QThread *thread = new QThread;
-    Worker *worker = new Worker;
-
     worker_voltage->moveToThread(thread_voltage);
     QObject::connect(item, SIGNAL(workRequested()), thread_voltage, SLOT(start()));
     QObject::connect(item, SIGNAL(abort()), thread_voltage, SLOT(quit()));

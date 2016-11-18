@@ -33,6 +33,9 @@ void Worker::abort()
 
 void Worker::doWork()
 {
+    // clean the data buffer
+    _dataBuffer.clear();
+
     qDebug() << "Starting worker process in Thread" << thread()->currentThreadId();
     for(int i = 0; i < 60; i++){
         //checks if process should be aborted
@@ -50,8 +53,10 @@ void Worker::doWork()
         QTimer::singleShot(1000, &loop, SLOT(quit()));
         loop.exec();
 
-        //once we're done waiting, value is updated
-         emit valueChanged(QString::number(i));
+        // add the data to buffer
+        _dataBuffer.append(qrand() % 4096);
+        qDebug() << "_databuffer : " << _dataBuffer.toHex();
+
     }
     // Set _working to false, meaning the process can't be aborted anymore
     mutex.lock();

@@ -51,7 +51,7 @@ Item {
 //                   array = test_class_first.GetTheList()
 //                   refreshData(test_class_first.GetTheList())
 //                   console.log("array :" + array)
-                   tmparray = test_class_first.GetTheList()
+//                   tmparray = test_class_first.GetTheList()
 //                    array = [];
 //                   array.length = 0;
 
@@ -94,7 +94,7 @@ Item {
 
                 //Set data visual properties and data/label variables.
                 chartData = {
-                    labels: ["0.00s", "", "", "", "","", "", "", "","","","0.01s","","","","","","","","","","","","0.02s"],
+                    labels: ["0.000", "", "", "", "","", "", "", "","","","0.001","","","","","","","","","","","","0.002", "", "", "", "","", "", "", "","","","0.003","","","","","","","","","","","","0.004"],
                     datasets:[
                         {
                             label: "Voltage line dataset",
@@ -131,6 +131,8 @@ Item {
             id: current_line2;
             width: 800;
             height: 144;
+            anchors.verticalCenterOffset: -1
+            anchors.horizontalCenterOffset: 0
             anchors.centerIn: parent
 
 
@@ -140,7 +142,7 @@ Item {
             chartType: Charts.ChartType.LINE;
             Component.onCompleted: {
                 chartData = {
-                    labels: ["0.00s", "", "", "", "","", "", "", "","","","0.01s","","","","","","","","","","","","0.02s"],
+                    labels: ["0.00s", "", "", "", "","", "", "", "","","","0.01s","","","","","","","","","","","","0.02s", "", "", "", "","", "", "", "","","","0.03s","","","","","","","","","","","","0.04s"],
                     datasets:[
                         {
                             label: "current line dataset",
