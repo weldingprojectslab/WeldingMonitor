@@ -42,13 +42,15 @@ void AdcThread::run()
 
     tmpDataTime = dataTime;
 
+            file.open(QIODevice::ReadOnly | QIODevice::Text);
+
     QElapsedTimer timer;
     timer.start();
 
     for(int i = 0; i < 1000; i++)
     {
 
-        file.open(QIODevice::ReadOnly | QIODevice::Text);
+
         *dataBuf = QString(file.readAll()).toInt();
         *dataTime = timer.nsecsElapsed();
 //        dataBuf[i] = QString(file.readAll()).toInt();
@@ -56,8 +58,10 @@ void AdcThread::run()
         dataBuf++;
         dataTime++;
 
-        file.close();
+        file.seek(0);
     }
+
+    file.close();
 
     for(int i = 0; i < 1000; i++ )
     {

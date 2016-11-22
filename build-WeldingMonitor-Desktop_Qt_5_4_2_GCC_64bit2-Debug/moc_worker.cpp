@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Worker_t {
-    QByteArrayData data[8];
-    char stringdata[63];
+    QByteArrayData data[11];
+    char stringdata[90];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,12 +35,16 @@ QT_MOC_LITERAL(2, 21, 0), // ""
 QT_MOC_LITERAL(3, 22, 12), // "valueChanged"
 QT_MOC_LITERAL(4, 35, 5), // "value"
 QT_MOC_LITERAL(5, 41, 8), // "finished"
-QT_MOC_LITERAL(6, 50, 6), // "doWork"
-QT_MOC_LITERAL(7, 57, 5) // "abort"
+QT_MOC_LITERAL(6, 50, 3), // "sig"
+QT_MOC_LITERAL(7, 54, 6), // "doWork"
+QT_MOC_LITERAL(8, 61, 5), // "abort"
+QT_MOC_LITERAL(9, 67, 10), // "GetTheList"
+QT_MOC_LITERAL(10, 78, 11) // "GetTheList2"
 
     },
     "Worker\0workRequested\0\0valueChanged\0"
-    "value\0finished\0doWork\0abort"
+    "value\0finished\0sig\0doWork\0abort\0"
+    "GetTheList\0GetTheList2"
 };
 #undef QT_MOC_LITERAL
 
@@ -50,27 +54,31 @@ static const uint qt_meta_data_Worker[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       3,       // signalCount
+       4,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   39,    2, 0x06 /* Public */,
-       3,    1,   40,    2, 0x06 /* Public */,
-       5,    0,   43,    2, 0x06 /* Public */,
+       1,    0,   54,    2, 0x06 /* Public */,
+       3,    1,   55,    2, 0x06 /* Public */,
+       5,    0,   58,    2, 0x06 /* Public */,
+       6,    0,   59,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       6,    0,   44,    2, 0x0a /* Public */,
+       7,    0,   60,    2, 0x0a /* Public */,
 
  // methods: name, argc, parameters, tag, flags
-       7,    0,   45,    2, 0x02 /* Public */,
+       8,    0,   61,    2, 0x02 /* Public */,
+       9,    0,   62,    2, 0x02 /* Public */,
+      10,    0,   63,    2, 0x02 /* Public */,
 
  // signals: parameters
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString,    4,
+    QMetaType::Void,
     QMetaType::Void,
 
  // slots: parameters
@@ -78,6 +86,8 @@ static const uint qt_meta_data_Worker[] = {
 
  // methods: parameters
     QMetaType::Void,
+    QMetaType::QStringList,
+    QMetaType::Int,
 
        0        // eod
 };
@@ -90,8 +100,13 @@ void Worker::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 0: _t->workRequested(); break;
         case 1: _t->valueChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 2: _t->finished(); break;
-        case 3: _t->doWork(); break;
-        case 4: _t->abort(); break;
+        case 3: _t->sig(); break;
+        case 4: _t->doWork(); break;
+        case 5: _t->abort(); break;
+        case 6: { QStringList _r = _t->GetTheList();
+            if (_a[0]) *reinterpret_cast< QStringList*>(_a[0]) = _r; }  break;
+        case 7: { int _r = _t->GetTheList2();
+            if (_a[0]) *reinterpret_cast< int*>(_a[0]) = _r; }  break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -113,6 +128,12 @@ void Worker::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
             typedef void (Worker::*_t)();
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Worker::finished)) {
                 *result = 2;
+            }
+        }
+        {
+            typedef void (Worker::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Worker::sig)) {
+                *result = 3;
             }
         }
     }
@@ -143,13 +164,13 @@ int Worker::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 8)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 5;
+        _id -= 8;
     }
     return _id;
 }
@@ -171,5 +192,11 @@ void Worker::valueChanged(const QString & _t1)
 void Worker::finished()
 {
     QMetaObject::activate(this, &staticMetaObject, 2, Q_NULLPTR);
+}
+
+// SIGNAL 3
+void Worker::sig()
+{
+    QMetaObject::activate(this, &staticMetaObject, 3, Q_NULLPTR);
 }
 QT_END_MOC_NAMESPACE

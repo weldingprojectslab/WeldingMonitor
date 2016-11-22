@@ -44,7 +44,7 @@ Item {
 
         Timer {
                id: dataTimer
-               interval: 1000
+               interval: 10000
                repeat: true
                onTriggered: {
                    addData([5.008, 10.007])
@@ -54,11 +54,15 @@ Item {
 //                   tmparray = test_class_first.GetTheList()
 //                    array = [];
 //                   array.length = 0;
+                   console.log(worker_qml.GetTheList())
+                   console.log("the number : " + worker_qml.GetTheList2())
+                   tmparray = worker_qml.GetTheList()
 
-                   array.splice(0);
-                   array.push(tmparray[4]);
+//                   array.push(tmparray[4]);
                    array[0] = tmparray[0];
                    array[1] = tmparray[1];
+                   array[2] = tmparray[2];
+                   array[3] = tmparray[3];
                    current_line2.repaint();
                }
 

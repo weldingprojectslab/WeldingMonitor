@@ -26,7 +26,7 @@ Window {
         Loader
         {
             id: pageloader_mainqmlpage
-            source: "qrc:/analysis.qml"
+            source: "qrc:/settings.qml"
         }
 
     }

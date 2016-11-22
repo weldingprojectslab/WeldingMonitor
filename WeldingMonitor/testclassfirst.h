@@ -12,6 +12,7 @@ public:
     Q_INVOKABLE QString GetTheResponse() {return "Eren";}
     Q_INVOKABLE QStringList GetTheList(){QStringList fonts; fonts << "1" << "2" << "20" << "50" <<  "10" << "900"; return fonts;}
 
+
 signals:
 
 public slots:
